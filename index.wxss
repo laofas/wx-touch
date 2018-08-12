@@ -1,0 +1,18 @@
+/**index.wxss**/
+
+.item {
+    height: 300px;
+    background: #eee;
+    overflow: hidden;
+    margin: 10px;
+    outline: 2px dashed #ccc;
+}
+
+.item view{
+	background: red;
+	width: 100px;
+	height: 100px;
+	margin: 100px auto;
+    line-height: 100px;
+    text-align: center;
+}
