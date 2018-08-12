@@ -1,8 +1,8 @@
 # wx-touch
-微信小程序的手势库，扩展了 swiper(up,right,down,left), rotate, pinch, drag 四个事件
+微信小程序的手势扩展，拥有 swiper(up,right,down,left), rotate, pinch, drag 四个事件
 
 #### wxml
-在 wxml 的元素里必须绑定这四个事件，这是一定要干的事
+在需要触发事件的 wxml 元素里必须绑定这四个事件，这是一定要干的事
 ```html
 <view
     bindtouchstart='startEvent'
@@ -15,14 +15,14 @@
 ```
 
 #### js
-使用 WxTouch.bindEvent 方法可以简介的绑定事件到实例里面
+使用 WxTouch.bindEvent 方法可以简洁的将事件绑定到实例里面，当然这需要配合 es6 的扩展运算符(...)
 ```javascript
 import WxTouch from "./wx-touch.js"
 
 // 创建事件
 let event = new WxTouch({
 
-    // swipe 滑动的阈值，到达了这个值才会触发 swipe 事件，默认是 30
+    // swipe 滑动的阈值，到达了这个值才会触发 swipe 事件，默认是 >=30
     threshold: 30,
     
     // swipe 滑动事件，
