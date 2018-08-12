@@ -7,10 +7,7 @@ export default class Swiper {
         this.touched = false;
         this.threshold = options.threshold || 30;
         this.events = {
-            start: options.start,
-            move: options.move,
-            end: options.end,
-            cancel: options.cancel,
+            drag: options.drag,
             swipe: options.swipe
         }
     }
@@ -19,19 +16,16 @@ export default class Swiper {
         this.touched = true;
         this.timeStamp = Date.now();
         this.touch = evt.changedTouches[0];
-        if (this.events.start) {
-            this.events.start(evt);
-        }
     }
 
     move(evt) {
-        if (this.touched && this.events.move) {
+        if (this.touched && this.events.drag) {
             let moveTouch = evt.changedTouches[0];
             evt.distance = {
                 x: moveTouch.clientX - this.touch.clientX,
                 y: moveTouch.clientY - this.touch.clientY
             };
-            this.events.move(evt);
+            this.events.drag(evt);
         }
     }
 
@@ -53,19 +47,11 @@ export default class Swiper {
                     }
                 }
             }
-
-            if (this.events.end) {
-                evt.type = "touchend";
-                this.events.end(evt);
-            }
         }
     }
 
     cancel(evt) {
         if (this.touched) {
-            if (this.events.cancel) {
-                this.events.cancel(evt);
-            }
             this.end(evt);
         }
     }
