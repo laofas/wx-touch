@@ -39,7 +39,7 @@ Page({
 
 ## Rotate
 ```javascript
-let scale = new Scale({
+let rotate = new Rotate({
     start(evt){
         // do some thing...
     },
@@ -50,7 +50,7 @@ let scale = new Scale({
         // do some thing...
     },
     scale(evt){
-        console.log(evt.scale)   // 0 ~ 360
+        console.log(evt.angle)   // 0 ~ 360
         // do some thing...
     }
 });
@@ -58,10 +58,10 @@ let scale = new Scale({
 Page({
     ...
     
-    start: scale.start.bind(swipe),
-    move: scale.move.bind(swipe),
-    end: scale.end.bind(swipe),
-    cancel: scale.cancel.bind(swipe)
+    start: rotate.start.bind(rotate),
+    move: rotate.move.bind(rotate),
+    end: rotate.end.bind(rotate),
+    cancel: rotate.cancel.bind(rotate)
 });
 ```
 
@@ -92,10 +92,10 @@ let scale = new Scale({
 Page({
     ...
     
-    start: scale.start.bind(swipe),
-    move: scale.move.bind(swipe),
-    end: scale.end.bind(swipe),
-    cancel: scale.cancel.bind(swipe)
+    start: scale.start.bind(scale),
+    move: scale.move.bind(scale),
+    end: scale.end.bind(scale),
+    cancel: scale.cancel.bind(scale)
 });
 ```
 
