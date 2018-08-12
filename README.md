@@ -1,115 +1,90 @@
 # wx-touch
-微信小程序的手势库，扩展了 swiper(up,right,down,left), rotate, scale 事件，
-创建事件的参数 start,end,cancel 是事件开始触发，结束，打断的事件，
-因为你绑定的时候直接使用了比如：swipe.start.bind(swipe)，少了自定义原生事件，这里只是一个兼容的做法，当然也可以不这么做，
-如果你是直接调用比如：swipe.start(event)，那么你需要传递事件对象 event，就不需要使用 bind 指向作用域了，
-在 wxml 元素绑定事件的时候 touchstart,touchmove,touchend,touchcancel 都是必须要绑定的。
+微信小程序的手势库，扩展了 swiper(up,right,down,left), rotate, scale, drag 四个事件
 
-swipe 事件比较特殊，它可以传递 move 事件，它保存了当前拖到的距离数据，可以做拖动效果
-还可以传递 threshold，它是触发事件的阈值，当滑动大于了这个值，才会触发 swipe 事件
+```wxml
+<!-- 在 wxml 的元素里必须绑定这四个事件 -->
+<view
+    bindtouchstart='startEvent'
+    bindtouchmove='moveEvent'
+    bindtouchend='endEvent'
+    bindtouchcancel='cancelEvent'
+>
+    ...
+</view>
+```
 
-## Swipe
 ```javascript
-let swipe = new Swiper({
+import WxTouch from "./wx-touch.js"
+
+// 创建事件
+let event = new WxTouch({
+
+    // swipe 滑动的阈值，到达了这个值才会触发 swipe 事件，默认是 30
     threshold: 30,
-    start(evt){
-        // do some thing...
-    },
-    move(evt){
-        console.log(evt.distance)   // {x: 100， y: 100}
-        // do some thing...
-    },
-    end(evt){
-        // do some thing...
-    },
-    cancel(evt){
-        // do some thing...
-    },
-    swiper(evt){
-        console.log(evt.type)   //swipeup, swiperight, swipedown, swipeleft
-        // do some thing...
-    }
-});
-
-Page({
-    ...
     
-    start: swiper.start.bind(swipe),
-    move: swiper.move.bind(swipe),
-    end: swiper.end.bind(swipe),
-    cancel: swiper.cancel.bind(swipe)
-});
-```
-```html
-<view bindtouchstart='start' bindtouchmove='move' bindtouchend='end' bindtouchcancel='cancel'>
-    ...
-</view>
-```
-
-## Rotate
-```javascript
-let rotate = new Rotate({
-    start(evt){
-        // do some thing...
+    // swipe 滑动事件，
+    swipe(evt){
+        console.log(evt.type)   // swipeup | swiperight | swipedown | swipeleft
+        console.log(evt.swiped)     // 是否触发了 swipe 事件标记，当你需要做特殊处理的时候，这将很有用
     },
-    end(evt){
-        // do some thing...
+    
+    // drag 拖拽事件
+    drag(evt){
+        console.log(evt.distance)   // {x: Number, y: Number}, evt.distance 拖动的距离，包含 X 轴和 Y 轴
     },
-    cancel(evt){
-        // do some thing...
-    },
+    
+    // rotate 旋转事件
     rotate(evt){
-        console.log(evt.angle)   // 0 ~ 360
-        // do some thing...
+        console.log(evt.rotateAngle)    // 当前的旋转角度
+    },
+    
+    // pinch 缩放事件
+    pinch(evt){
+        console.log(evt.scaling)    // 缩放的比例值
     }
 });
+
 
 Page({
     ...
     
-    start: rotate.start.bind(rotate),
-    move: rotate.move.bind(rotate),
-    end: rotate.end.bind(rotate),
-    cancel: rotate.cancel.bind(rotate)
-});
-```
-
-```html
-<view bindtouchstart='start' bindtouchmove='move' bindtouchend='end' bindtouchcancel='cancel'>
-    ...
-</view>
-```
-
-## Scale
-```javascript
-let scale = new Scale({
-    start(evt){
-        // do some thing...
-    },
-    end(evt){
-        // do some thing...
-    },
-    cancel(evt){
-        // do some thing...
-    },
-    scale(evt){
-        console.log(evt.scale)   // > 0
-        // do some thing...
-    }
-});
-
-Page({
-    ...
+    // 第一种绑定事件的方法，直接绑定的时候，使用使用 bind 把作用域调整到 event 对象
+    startEvent: event.start.bind(event),
+    moveEvent: event.move.bind(event),
+    endEvent: event.end.bind(event),
+    cancelEvent: event.cancel.bind(event),
     
-    start: scale.start.bind(scale),
-    move: scale.move.bind(scale),
-    end: scale.end.bind(scale),
-    cancel: scale.cancel.bind(scale)
+    // 第二种绑定事件的方法
+    startEvent(evt){
+        // do some thing...
+        event.start(evt);
+    },
+    moveEvent(evt){
+        // do some thing...
+        event.move(evt);
+    },
+    endEvent(evt){
+        // do some thing...
+        event.end(evt);
+    },
+    cancelEvent(evt){
+        // do some thing...
+        event.cancel(evt);
+    },
+    
+    
+    // 推荐使用，第三种绑定事件的方法，使用 WxTouch.bindEvent
+    ...WxTouch.bindEvent("Event", event),   // {startEvent(){}, moveEvent(){}, endEvent(){}, cancelEvent(){} }
+    
+    // 如果你需要自定义，或者做一些别的操作
+    ...WxTouch.bindEvent("Event", event, {
+        start(evt){
+            // do some thing...         // 这里的 this 是当前的页面实例对象，不是 WxTouch 实例对象
+        },
+        move(){},
+        end(){},
+        cancel(){}
+    })
 });
-```
 
-```html
-<view bindtouchstart='start' bindtouchmove='move' bindtouchend='end' bindtouchcancel='cancel'>
-    ...
-</view>
 ```
