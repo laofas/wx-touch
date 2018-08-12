@@ -1,17 +1,71 @@
 <!--index.wxml-->
+<view class="container">
 
-<view class='item'>
-    <view>swipe</view>
-</view>
+    <view class='btn-group'>
+        <view wx:for='{{btns}}' wx:key='{{index}}' data-type='{{item}}' bindtap='changeType' class='{{type==item?"active":""}}'>{{item}}</view>
+    </view>
 
-<view class='item'>
-    <view>drag</view>
-</view>
 
-<view class='item'>
-    <view>rotate</view>
-</view>
+    <!-- swipe -->
+    <view 
+        hidden='{{type!="Swipe"}}'
+        class='item' 
+        bindtouchstart='startSwipe' 
+        bindtouchmove='moveSwipe' 
+        bindtouchend='endSwipe' 
+        bindtouchcancel='cancelSwipe'
+    >
+        <view style='transform:translate({{position.x}}px,{{position.y}}px);transition:all 0.3s;'>Swipe</view>
+    </view>
 
-<view class='item'>
-    <view>scale</view>
+    <!-- drag -->
+    <view 
+        hidden='{{type!="Drag"}}'
+        class='item' 
+        bindtouchstart='startDrag' 
+        bindtouchmove='moveDrag' 
+        bindtouchend='endDrag' 
+        bindtouchcancel='cancelDrag'
+    >
+        <view style='transform:translate({{drag.x}}px,{{drag.y}}px);'>Drag</view>
+    </view>
+
+    <!-- rotate -->
+    <view 
+        hidden='{{type!="Rotate"}}'
+        class='item' 
+        bindtouchstart='startRotate' 
+        bindtouchmove='moveRotate' 
+        bindtouchend='endRotate' 
+        bindtouchcancel='cancelRotate'
+    >
+        <view style='transform:rotate({{angle}}deg);'>Rotate</view>
+    </view>
+
+    <!-- pinch -->
+    <view 
+        hidden='{{type!="Pinch"}}'
+        class='item' 
+        bindtouchstart='startPinch' 
+        bindtouchmove='movePinch' 
+        bindtouchend='endPinch' 
+        bindtouchcancel='cancelPinch'
+    >
+        <view style='transform:scale({{scale}});'>Scale</view>
+    </view>
+
+
+    <!-- all -->
+    <view 
+        hidden='{{type!="All"}}'
+        class='item' 
+        bindtouchstart='startAll' 
+        bindtouchmove='moveAll' 
+        bindtouchend='endAll' 
+        bindtouchcancel='cancelAll'
+    >
+        <view style='transform:translate({{all.position.x}}px,{{all.position.y}}px) scale({{all.scale}}) rotate({{all.angle}}deg);'>All</view>
+    </view>
+
+
 </view>
