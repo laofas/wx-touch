@@ -1,18 +1,39 @@
 /**index.wxss**/
 
+.btn-group {
+    display: flex;
+    flex-wrap: wrap;
+    padding: 10px;
+}
+
+.btn-group view {
+    border: 1px solid #ccc;
+    text-align: center;
+    height: 30px;
+    line-height: 30px;
+    width: 20%;
+    box-sizing: border-box;
+}
+
+.btn-group view.active {
+    border-color: #08f;
+    box-shadow: 0 0 0 1px #08f;
+    color: #08f;
+    position: relative;
+}
+
 .item {
     height: 300px;
-    background: #eee;
     overflow: hidden;
     margin: 10px;
     outline: 2px dashed #ccc;
 }
 
-.item view{
-	background: red;
-	width: 100px;
-	height: 100px;
-	margin: 100px auto;
+.item view {
+    background: #08f;
+    width: 100px;
+    height: 100px;
+    margin: 100px auto;
     line-height: 100px;
     text-align: center;
 }
