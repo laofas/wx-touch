@@ -49,7 +49,7 @@ let rotate = new Rotate({
     cancel(evt){
         // do some thing...
     },
-    scale(evt){
+    rotate(evt){
         console.log(evt.angle)   // 0 ~ 360
         // do some thing...
     }
