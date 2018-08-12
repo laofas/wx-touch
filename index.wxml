@@ -1,0 +1,17 @@
+<!--index.wxml-->
+
+<view class='item'>
+    <view>swipe</view>
+</view>
+
+<view class='item'>
+    <view>drag</view>
+</view>
+
+<view class='item'>
+    <view>rotate</view>
+</view>
+
+<view class='item'>
+    <view>scale</view>
+</view>
