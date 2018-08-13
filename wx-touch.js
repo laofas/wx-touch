@@ -156,7 +156,9 @@ WxTouch.bindEvent = function(name, event, options) {
         options = {}
     }
     ["start", "move", "end", "cancel"].forEach(item => {
-        bind[item + name] = options[item] || event[item].bind(event);
+        bind[item + name] = options[item] ? function(evt){
+            options[item].call(this, evt, event);
+        } : event[item].bind(event);
     });
     return bind;
 };
