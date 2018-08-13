@@ -76,8 +76,7 @@ class WxTouch {
 
         // 必须是 start 执行了，才会触发
         if (this.touched) {
-            let touch = evt.changedTouches[0],
-                startTouches = this.touches,
+            let startTouches = this.touches,
                 moveTouches = evt.touches,
                 events = this.events;
 
@@ -95,8 +94,8 @@ class WxTouch {
                 // 只有一个触摸点的时候，才会触发 drag 事件
             } else if (events.drag) {
                 evt.distance = {
-                    x: touch.clientX - startTouches[0].clientX,
-                    y: touch.clientY - startTouches[0].clientY
+                    x: moveTouches[0].clientX - startTouches[0].clientX,
+                    y: moveTouches[0].clientY - startTouches[0].clientY
                 };
                 events.drag(evt);
             }
