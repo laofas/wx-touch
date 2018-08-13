@@ -27,8 +27,8 @@ let event = new WxTouch({
     
     // swipe 滑动事件，
     swipe(evt){
-        console.log(evt.type)   // swipeup | swiperight | swipedown | swipeleft
-        console.log(evt.swiped)     // 是否触发了 swipe 事件标记，当你需要做特殊处理的时候，这将很有用
+        console.log(evt.type)   // String, swipeup | swiperight | swipedown | swipeleft
+        console.log(evt.swiped)     // Boolean, 是否触发了 swipe 事件标记，当你需要做特殊处理的时候，这将很有用
     },
     
     // drag 拖拽事件
@@ -38,12 +38,12 @@ let event = new WxTouch({
     
     // rotate 旋转事件
     rotate(evt){
-        console.log(evt.rotateAngle)    // 当前的旋转角度
+        console.log(evt.rotateAngle)    // Number, 当前的旋转角度
     },
     
     // pinch 缩放事件
     pinch(evt){
-        console.log(evt.scaling)    // 缩放的比例值
+        console.log(evt.scaling)    // Number, 缩放的比例值
     }
 });
 
@@ -56,6 +56,7 @@ Page({
     moveEvent: event.move.bind(event),
     endEvent: event.end.bind(event),
     cancelEvent: event.cancel.bind(event),
+    
     
     // 第二种绑定事件的方法
     startEvent(evt){
@@ -79,14 +80,22 @@ Page({
     // 推荐使用，第三种绑定事件的方法，使用 WxTouch.bindEvent
     ...WxTouch.bindEvent("Event", event),   // {startEvent(){}, moveEvent(){}, endEvent(){}, cancelEvent(){} }
     
-    // 如果你需要自定义，或者做一些别的操作
+    
+    // 如果你需要自定义，或者做一些别的操作，自定义事件的第二个参数是 WxTouch 实例对象
     ...WxTouch.bindEvent("Event", event, {
-        start(evt){
-            // do some thing...         // 这里的 this 是当前的页面实例对象，不是 WxTouch 实例对象
+        start(evt, wxTouch){
+            
+            // 这里的 this 是当前的页面实例对象
+            this.setData({
+                index: this.data.index + 1
+            });
+            
+            // 需要手动去执行 start 事件，这样可以灵活的控制它是在操作前面执行，还是后面执行
+            wxTouch.start(evt);
         },
-        move(){},
-        end(){},
-        cancel(){}
+        move(evt, wxTouch){},
+        end(evt, wxTouch){},
+        cancel(evt, wxTouch){}
     })
 });
 
