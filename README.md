@@ -74,7 +74,7 @@ let event = WxTouch({
     swipe(evt){
 
         // 当前滑动的方向
-        console.log(evt.direction)      // up | right | down | up
+        console.log(evt.direction)      // up | right | down | left
 
         this.setData({
             value: 1
