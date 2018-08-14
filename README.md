@@ -155,10 +155,13 @@ Page({
 
 ```
 事件执行流程：
-`swipe`: touchstart > touchmove > touchend
-`drag`: touchstart > touchmove
-`rotate`: touchstart > touchmove
-`pinch`: touchstart > touchmove
+```html
+swipe: touchstart > touchmove > touchend
+drag: touchstart > touchmove
+rotate: touchstart > touchmove
+pinch: touchstart > touchmove
+
+```
 
 
 
