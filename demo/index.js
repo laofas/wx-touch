@@ -2,7 +2,6 @@
 
 import WxTouch from "../src/wx-touch.js"
 
-
 Page({
 
     data: {
