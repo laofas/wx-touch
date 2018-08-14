@@ -6,14 +6,10 @@
     padding: 10px;
 }
 
-.btn-group view {
-    border: 1px solid #ccc;
-    text-align: center;
-    height: 30px;
-    line-height: 30px;
-    width: 20%;
-    box-sizing: border-box;
+.btn-group button{
+    margin: 0 10px 10px 0;
 }
+
 
 .btn-group view.active {
     border-color: #08f;
@@ -23,7 +19,7 @@
 }
 
 .item {
-    height: 300px;
+    height: 360px;
     overflow: hidden;
     margin: 10px;
     outline: 2px dashed #ccc;
@@ -33,7 +29,7 @@
     background: #08f;
     width: 100px;
     height: 100px;
-    margin: 100px auto;
+    margin: 130px auto;
     line-height: 100px;
     text-align: center;
 }

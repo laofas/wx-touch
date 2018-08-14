@@ -2,7 +2,7 @@
 <view class="container">
 
     <view class='btn-group'>
-        <view wx:for='{{btns}}' wx:key='{{index}}' data-type='{{item}}' bindtap='changeType' class='{{type==item?"active":""}}'>{{item}}</view>
+        <button wx:for='{{btns}}' wx:key='{{index}}' data-type='{{item}}' bindtap='changeType' type='{{type==item?"primary":""}}' size='mini'>{{item}}</button>
     </view>
 
 
@@ -15,7 +15,7 @@
         bindtouchend='endSwipe' 
         bindtouchcancel='cancelSwipe'
     >
-        <view style='transform:translate({{position.x}}px,{{position.y}}px);transition:all 0.3s;'>Swipe</view>
+        <view style='transform:translate({{swipe.x}}px,{{swipe.y}}px);transition:all 0.3s;'>Swipe</view>
     </view>
 
     <!-- drag -->
@@ -64,7 +64,7 @@
         bindtouchend='endAll' 
         bindtouchcancel='cancelAll'
     >
-        <view style='transform:translate({{all.position.x}}px,{{all.position.y}}px) scale({{all.scale}}) rotate({{all.angle}}deg);'>All</view>
+        <view style='position:relative; left:{{all.swipe.x}}px; top:{{all.swipe.y}}px; transform:translate({{all.drag.x}}px,{{all.drag.y}}px) scale({{all.scale}}) rotate({{all.angle}}deg);'>All</view>
     </view>
 
 
