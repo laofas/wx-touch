@@ -5,11 +5,9 @@
 
 
 /*
-
 获取一条线相对于垂直的角度
 @param {Object} a
 @param {Object} b
-
 */
 function getAngle(a, b) {
     return 180 / Math.PI * Math.atan2(b.clientX - a.clientX, b.clientY - a.clientY);
@@ -17,11 +15,9 @@ function getAngle(a, b) {
 
 
 /*
-
 获取两个点之间的距离
 @param {Object} a
 @param {Object} b
-
 */
 function getDistance(a, b) {
     return Math.sqrt(Math.pow(a.clientX - b.clientX, 2) + Math.pow(a.clientY - b.clientY, 2));
@@ -88,9 +84,9 @@ class WxTouch {
 
                 // 只有一个触摸点的时候，才会触发 drag 事件
             } else if (events.drag) {
-                evt.distance = {
-                    x: moveTouches[0].clientX - startTouches[0].clientX,
-                    y: moveTouches[0].clientY - startTouches[0].clientY
+                evt.dragRect = {
+                    width: moveTouches[0].clientX - startTouches[0].clientX,
+                    height: moveTouches[0].clientY - startTouches[0].clientY
                 };
                 events.drag.call(this, evt);
             }
@@ -144,13 +140,10 @@ class WxTouch {
 
 
 /*
-
 创建事件
 返回的对象包括 {start[Name], move[Name], end[Name], cancel[Name]}
 使用 es6 扩展运算符直接绑定到实例里面
-
 @param {Object} options
-
 */
 export default function(options) {
 
