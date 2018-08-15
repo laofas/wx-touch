@@ -1,6 +1,6 @@
-//index.js
+// index.js
 
-import WxTouch from "../src/wx-touch.js"
+import WxTouch from "../../src/wx-touch.js"
 
 Page({
 
@@ -110,12 +110,12 @@ Page({
             evt.$touch.start.call(this, evt);
         },
 
-        // evt.distance，当前拖到的距离位置对象
+        // evt.dragRect，当前拖到的距离位置矩形
         drag(evt) {
             this.setData({
                 drag: {
-                    x: evt.distance.x + evt.$touch.data.drag.x,
-                    y: evt.distance.y + evt.$touch.data.drag.y
+                    x: evt.dragRect.width + evt.$touch.data.drag.x,
+                    y: evt.dragRect.height + evt.$touch.data.drag.y
                 }
             })
         }
@@ -125,7 +125,7 @@ Page({
     ...WxTouch({
         name: "Rotate",
 
-        start(evt){
+        start(evt) {
             evt.$touch.data.angle = this.data.angle;
             evt.$touch.start.call(this, evt);
         },
@@ -161,12 +161,12 @@ Page({
     ...WxTouch({
         name: "All",
 
-        start(evt){
+        start(evt) {
             evt.$touch.data.all = JSON.parse(JSON.stringify(this.data.all));
             evt.$touch.start.call(this, evt);
         },
 
-        swipe(evt){
+        swipe(evt) {
             let x = 0,
                 y = 0,
                 value = 50;
@@ -194,12 +194,12 @@ Page({
             });
         },
 
-        drag(evt){
+        drag(evt) {
             let data = evt.$touch.data.all;
             this.setData({
                 "all.drag": {
-                    x: evt.distance.x + data.drag.x,
-                    y: evt.distance.y + data.drag.y
+                    x: evt.dragRect.width + data.drag.x,
+                    y: evt.dragRect.height + data.drag.y
                 }
             })
         },
