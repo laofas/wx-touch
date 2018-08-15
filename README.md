@@ -86,8 +86,8 @@ let event = WxTouch({
     // drag 拖拽事件回调
     drag(evt){
         
-        // 当前拖动的距离位置对象
-        console.log(evt.distance)       // {x: 0, y: 0}
+        // 当前拖动的距离位置矩形对象
+        console.log(evt.dragRect)       // {width: 0, height: 0}
 
         this.setData({
             value: 1
