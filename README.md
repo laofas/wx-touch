@@ -6,7 +6,7 @@
 + touchcancel
 + tap
 + doubletap
-+ swipe: (up,right,bottom,left)
++ swipe: (up, right, down, left)
 + pressmove
 + rotate
 + pinch
