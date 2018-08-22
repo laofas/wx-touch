@@ -1,4 +1,6 @@
-# wx-touch
+# 改写了实现逻辑，以下文档将部分失效...
+
+#### wx-touch
 微信小程序的手势扩展，拥有 `swiper(up,right,down,left)`, `rotate`, `pinch`, `drag` 四个手势事件
 
 #### wxml
