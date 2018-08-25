@@ -16,7 +16,7 @@ touchstart, touchmove, touchend, touchcancel, tap 这五个事件，原生就支
 因为当调用 `WxTouch` 方法的时候，创建了一个对象，返回五个方法，分别是： start[Name], move[Name], end[Name], cancel[Name], tap[Name]，
 [Name] 是创建的时候传递的第一个参数，就是给事件定义的名称，这五个方法是方便直接绑定到 wxml 元素的，因此需要自定义这些事件的时候，还要多包一层函数，为了明确区分事件类型，所以就添加了
 
-### 绑定事件
+### wxml
 
 在需要触发事件的 wxml 元素上面  **必须**  要绑定 bindtouchstart, bindtouchmove, bindtouchend, bindtouchcancel 这四个事件，
 tap 事件是可选的，当需要触发 doubletap 再去绑定 bindtap 事件
@@ -33,7 +33,17 @@ tap 事件是可选的，当需要触发 doubletap 再去绑定 bindtap 事件
 </view>
 ```
 
-### 使用方法
+### wxss
+
+当第一次手指向下滑动的时候，会出现卡顿现象，我想可能是因为触发了滚动条，或者触发了微信内部的下拉刷新，或者其他的原因，反正只要在 wxss 里面将 page 元素的样式 overflow 属性设置为 hidden，就能够解决问题
+
+```css
+page{
+    overflow: hidden;
+}
+```
+
+### js
 
 ```javascript
 // 导入 wx-touch.js
@@ -148,28 +158,10 @@ let event = WxTouch('MyEvent', {
         console.log(evt)
     }
     
-})
-```
+});
 
-### 方法返回
 
-方法返回五个处理器，分别对应 `touchstart`,`touchmove`,`touchend`,`touchcancel`,`tap` 五个事件类型
-
-处理器名称后面的 "MyEvent" 是创建时传递的第一个参数值
-
-```javascript
-{
-    startMyEvent: Function,
-    moveMyEvent: Function,
-    endMyEvent: Function,
-    cancelMyEvent: Function,
-    tapMyEvent: Function
-}
-```
-
-### 注册到 Page
-
-```javascript
+// 注册到 Page
 Page({
     data: {
         
@@ -207,7 +199,20 @@ Page({
     }
 
 })
+```
 
+### 方法返回
+
+方法返回五个处理器，分别对应 `touchstart`,`touchmove`,`touchend`,`touchcancel`,`tap` 五个事件类型，处理器名称后面的 "MyEvent" 是创建时传递的第一个参数值
+
+```javascript
+{
+    startMyEvent: Function,
+    moveMyEvent: Function,
+    endMyEvent: Function,
+    cancelMyEvent: Function,
+    tapMyEvent: Function
+}
 ```
 
 ### 评估添加的选项
