@@ -66,10 +66,10 @@ let event = WxTouch('MyEvent', {
     // 由于微信小程序的 setData 特性，move 事件又是高频发事件，并且 pressmove,rotate,pinch 都依赖于这一事件
     // 如果每个处理器里面都有一个 setData，那么程序就会出现明显的卡顿
     // 假如你同时定义了 pressmove,rotate,pinch 事件或者其中的两个
-    // 你可以再事件处理器中处理好数据，再等到 touchmove 处理器中执行时调用 setData，这样性能会有所提高
+    // 你可以再事件处理器中处理好数据，再等到 touchmove 处理器中执行时一次性调用 setData，这样性能会有所提高
     // 注意避免在依赖 touchmove 的事件处理器中同时多次调用 setData
     // 因此 touchmove 事件是最后执行到的，在它之前会先触发 pressmove,rotate,pinch 这三个事件
-    // evt 事件对象就保留了一些数据：
+    // event 事件对象就保留了一些属性，因此你也可以直接在这里做数据处理，但是一定要定义事件处理器，否则不会有这些属性：
 
     // evt.deltaX: pressmove 事件 X 轴平移距离，如果定义了 pressmove 事件，并且触发才会有此属性
     // evt.deltaY: pressmove 事件 Y 轴平移距离，如果定义了 pressmove 事件，并且触发才会有此属性
@@ -113,7 +113,7 @@ let event = WxTouch('MyEvent', {
     
     // doubletap 事件，手指双击屏幕时触发
     
-    doubletap(){
+    doubletap(evt){
         // do something...
     },
     
