@@ -177,27 +177,8 @@ Page({
     
     ...WxTouch('EventName', {
         //...
-    }),
+    })
     
-    // 3. 自定义绑定，不推荐
-    // 使用 call 绑定作用域为当前页面，当然你不使用也是可以的，只是在事件处理器里面不能使用 this.setData 而已
-    
-    start(evt){
-        event.startMyEvent.call(this, evt)
-    },
-    move(evt){
-        event.moveMyEvent.call(this, evt)
-    },
-    end(evt){
-        event.endMyEvent.call(this, evt)
-    },
-    cancel(evt){
-        event.cancelMyEvent.call(this, evt)
-    },
-    tap(evt){
-        event.tapMyEvent.call(this, evt)
-    }
-
 })
 ```
 
