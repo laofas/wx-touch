@@ -203,10 +203,10 @@ Page({
 + touchcancel: touchcancel
 + tap: tap
 + doubletap: tap > tap
-+ swipe: touchstart > swipe > touchend
-+ pressmove: touchstart > pressmove > touchmove
-+ rotate: touchstart > pressmove > rotate > touchmove
-+ pinch: touchstart > pressmove > rotate > pinch > touchmove
++ swipe: swipe > touchend
++ pressmove: pressmove > touchmove
++ rotate: pressmove > rotate > touchmove
++ pinch: pressmove > rotate > pinch > touchmove
 
 ### 评估添加的选项
 + swipe 事件触发时间限制，目前不限制
