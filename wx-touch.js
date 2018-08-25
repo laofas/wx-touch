@@ -85,12 +85,11 @@ class WxTouch {
                     events.pinch.call(context, evt);
                 }
             }
-
-            if (events.touchmove) {
-                events.touchmove.call(context, evt);
-            }
         }
 
+        if (events.touchmove) {
+            events.touchmove.call(context, evt);
+        }
     }
 
 
@@ -118,12 +117,10 @@ class WxTouch {
                     events.swipe.call(context, evt);
                 }
             }
+        }
 
-            if (events.touchend) {
-                events.touchend.call(context, evt);
-            }
-
-
+        if (events.touchend) {
+            events.touchend.call(context, evt);
         }
     }
 
