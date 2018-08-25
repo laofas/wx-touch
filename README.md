@@ -155,7 +155,7 @@ let event = WxTouch('MyEvent', {
 
 方法返回五个处理器，分别对应 `touchstart`,`touchmove`,`touchend`,`touchcancel`,`tap` 五个事件类型
 
-处理器名称后面的 `MyEvent` 是创建时传递的第一个参数值
+处理器名称后面的 "MyEvent" 是创建时传递的第一个参数值
 
 ```javascript
 {
