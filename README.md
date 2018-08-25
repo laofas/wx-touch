@@ -196,6 +196,18 @@ Page({
 }
 ```
 
+### 事件执行流
++ touchstart: touchstart
++ touchmove: touchmove
++ touchend: touchend
++ touchcancel: touchcancel
++ tap: tap
++ doubletap: tap > tap
++ swipe: touchstart > swipe > touchend
++ pressmove: touchstart > pressmove > touchmove
++ rotate: touchstart > pressmove > rotate > touchmove
++ pinch: touchstart > pressmove > rotate > pinch > touchmove
+
 ### 评估添加的选项
 + swipe 事件触发时间限制，目前不限制
 + swipe 事件触发距离限制，目前为 10px
