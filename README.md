@@ -35,8 +35,8 @@ tap 事件是可选的，当需要触发 doubletap 再去绑定 bindtap 事件
 
 ### 使用方法
 
-导入 wx-touch.js
 ```javascript
+// 导入 wx-touch.js
 import WxTouch from './wx-touch.js'
 
 // 创建事件
