@@ -19,7 +19,7 @@ class WxTouch {
     constructor(options) {
 
         this.touched = false;
-        this.startTime = 0;
+        // this.startTime = 0;
         this.startAngle = 0;
         this.startScale = 0;
         this.startTouches = null;
@@ -42,7 +42,7 @@ class WxTouch {
             touches = this.startTouches = evt.touches;
 
         this.touched = true;
-        this.startTime = Date.now();
+        // this.startTime = Date.now();
 
         if (touches.length > 1) {
             if (events.rotate) {
@@ -97,15 +97,16 @@ class WxTouch {
     end(evt, context) {
         if (this.touched) {
 
-            let now = Date.now(),
-                events = this.events,
+            // let now = Date.now(),
+            let events = this.events,
                 startTouch = this.startTouches[0];
 
             if (evt.touches.length == 0) {
                 this.touched = false;
             }
 
-            if (events.swipe && (now - this.startTime < 300)) {
+            // if (events.swipe && (now - this.startTime < 300)) {
+            if (events.swipe) {
                 let endTouch = evt.changedTouches[0],
                     deltaX = endTouch.clientX - startTouch.clientX,
                     deltaY = endTouch.clientY - startTouch.clientY,
