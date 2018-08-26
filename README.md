@@ -54,6 +54,17 @@ import WxTouch from './wx-touch.js'
 // 第二个参数为事件选项，以及定义事件处理器，处理器的 this 对象指向的是当前的页面对象，因此你可以直接使用 this.setData 方法
 let event = WxTouch('MyEvent', {
     
+    // 选填，限制 swipe 事件滑动的速度，传递 false 则不限制
+    swipeVelocity: 300,
+    
+    // 选填，限制 swipe 事件滑动的最小距离
+    swipeThreshold: 10,
+    
+    // 选填，限制 doubletap 点击的速度
+    doubletapVelocity: 300,
+
+
+    
     // touchstart 事件，当手指开始触摸屏幕时触发
     
     touchstart(evt){
@@ -84,6 +95,7 @@ let event = WxTouch('MyEvent', {
     
     // touchend 事件，当手指离开屏幕时触发
     // 它也是最后一个触发的事件，在它之前会先触发 swipe 事件
+    // 如果你定义了 pressmove 事件，当有多个触摸点平移的时候，它还会重置开始触摸的位置
     
     // evt.direction: swipe 事件的方向，如果定义了 swipe 事件，并且触发才会有此属性
     
@@ -196,10 +208,12 @@ WxTouch 方法返回五个处理器，分别对应 touchstart, touchmove, touche
 }
 ```
 
+
 ### 事件执行流
+
 + touchstart: touchstart
-+ touchmove: touchmove
-+ touchend: touchend
++ touchmove: pressmove > rotate > pinch > touchmove
++ touchend: swipe > touchend
 + touchcancel: touchcancel
 + tap: tap
 + doubletap: tap > tap
@@ -207,10 +221,3 @@ WxTouch 方法返回五个处理器，分别对应 touchstart, touchmove, touche
 + pressmove: pressmove > touchmove
 + rotate: pressmove > rotate > touchmove
 + pinch: pressmove > rotate > pinch > touchmove
-
-### 评估添加的选项
-+ swipe 事件触发时间限制，目前不限制
-+ swipe 事件触发距离限制，目前为 10px
-+ pinch 事件触发距离限制，目前不限制
-+ doubletap 事件触发时间限制，目前为 500ms
-+ 要不要改变 event.type 为当前触发的事件名称，目前不改变
