@@ -224,7 +224,7 @@ WxTouch 方法返回五个处理器，分别对应 touchstart, touchmove, touche
 + touchcancel: touchcancel
 + tap: tap
 + doubletap: tap > tap
-+ swipe: swipe > touchend
-+ pressmove: pressmove > touchmove
-+ rotate: pressmove > rotate > touchmove
-+ pinch: pressmove > rotate > pinch > touchmove
++ swipe: swipe
++ pressmove: pressmove
++ rotate: pressmove > rotate
++ pinch: pressmove > rotate > pinch
