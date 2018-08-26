@@ -251,7 +251,7 @@ export default function(name, options) {
     let touch = new WxTouch(options),
         events = {};
 
-    return TOUCH_TYPES.forEach(function(item) {
+    return TOUCH_TYPES.forEach(item => {
         events[item + name] = function(evt) {
             touch[item](evt, this);
         }
