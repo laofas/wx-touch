@@ -1,0 +1,19 @@
+<!--pages/index/index.wxml-->
+
+<view class='container' 
+
+    bindtouchstart='startTouch' 
+    bindtouchmove='moveTouch' 
+    bindtouchend='endTouch' 
+    bindtouchcancel='cancelTouch' 
+    bindtap='tapTouch'>
+
+    <view class='box' style='transition:{{transition}}; transform:translate({{deltaX}}px, {{deltaY}}px) rotate({{angle}}deg) scale({{scale}});'></view>
+
+    <view>deltaX: {{deltaX}}</view>
+    <view>deltaY: {{deltaY}}</view>
+    <view>angle: {{angle}}</view>
+    <view>scale: {{scale}}</view>
+    <view>swipe: {{direction}}</view>
+
+</view>
