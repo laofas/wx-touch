@@ -1,0 +1,19 @@
+/* pages/index/index.wxss */
+
+page, .container {
+    height: 100%;
+    overflow: hidden;
+    word-break: break-all;
+}
+
+.box {
+    width: 200px;
+    height: 200px;
+    background: #08f;
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    margin: auto;
+}
