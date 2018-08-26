@@ -14,7 +14,9 @@
 
 touchstart, touchmove, touchend, touchcancel, tap 这五个事件，原生就支持，为什么还要添加？
 因为当调用 `WxTouch` 方法的时候，创建了一个对象，返回五个方法，分别是： start[Name], move[Name], end[Name], cancel[Name], tap[Name]，
-[Name] 是创建的时候传递的第一个参数，就是给事件定义的名称，这五个方法是方便直接绑定到 wxml 元素的，因此需要自定义这些事件的时候，还要多包一层函数，为了明确区分事件类型，所以就添加了
+[Name] 是创建的时候传递的第一个参数，就是给事件定义的名称，这五个方法是方便直接绑定到 wxml 元素的，因此需要自定义这些事件的时候，还要多包一层函数，为了明确区分事件类型，所以就添加了。
+
+#### pressmove,rotate,pinch 这三个事件可以合并触发，由于微信小程序 setData 特性，又因为 move 事件是高频发事件，所以要避免同时调用 setData 方法，可以等到 touchmove 执行时一次性调用 setData 设置数据，touchmove 事件是在这三个事件后面执行的。
 
 ### wxml
 
