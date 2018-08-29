@@ -28,7 +28,7 @@
 在需要触发事件的 wxml 元素上面  **必须**  要绑定 bindtouchstart, bindtouchmove, bindtouchend, bindtouchcancel 这四个事件，
 tap 事件是可选的，当需要触发 doubletap 再去绑定 bindtap 事件
 
-```
+```xml
 <view
     bindtouchstart='startEventName'
     bindtouchmove='moveEventName'
