@@ -4,7 +4,7 @@
 
 
 // 事件类型
-let TOUCH_TYPES = ["start", "move", "end", "cancel", "tap"],
+const TOUCH_TYPES = ["start", "move", "end", "cancel", "tap"],
     EVENT_TYPES = ["touchstart", "touchmove", "touchend", "touchcancel", "swipe", "pressmove", "rotate", "pinch", "tap", "doubletap"];
 
 // 获取一条线相对于垂直的角度
@@ -56,7 +56,7 @@ class WxTouch {
         this.startTime = 0;
         this.startAngle = 0;
         this.startScale = 0;
-        this.startTouches = [];
+        this.startTouch = null;
         this.tapCount = 0;
         this.startTabTime = 0;
         this.startPosition = {};
@@ -75,13 +75,17 @@ class WxTouch {
     start(evt, context) {
 
         let events = this.events,
-            touches = this.startTouches = evt.touches;
+            touches = evt.touches;
 
         // 标记为已经触摸
         this.touched = true;
 
-        // 标记开始触摸的时间，用于 swipe 的速度计算
-        this.startTime = Date.now();
+        if (!this.startTouch) {
+
+            // 标记开始触摸的时间，用于 swipe 的速度计算
+            this.startTime = Date.now();
+            this.startTouch = touches[0];
+        }
 
         // 保存开始触摸的位置
         if (events.pressmove) {
@@ -156,22 +160,11 @@ class WxTouch {
         // 当标记已经触摸了，才会执行
         if (this.touched) {
 
-            // 如果没有触摸点了，就是所有的手指都已经离开屏幕，标记触摸点为 false
-            if (evt.touches.length == 0) {
-                this.touched = false;
-
-            } else if (events.pressmove) {
-
-                // 如果还有手指触摸着屏幕，并且定义 pressmove 事件，需要重置开始触摸的中心位置
-                this.startPosition = getPosition(evt.touches);
-            }
-
             // 限制滑动时间是否超时，超时则不执行
             if (events.swipe && (!this.swipeVelocity || Date.now() - this.startTime <= this.swipeVelocity)) {
                 let endTouch = evt.changedTouches[0],
-                    startTouch = this.startTouches[0],
-                    deltaX = endTouch.clientX - startTouch.clientX,
-                    deltaY = endTouch.clientY - startTouch.clientY,
+                    deltaX = endTouch.clientX - this.startTouch.clientX,
+                    deltaY = endTouch.clientY - this.startTouch.clientY,
 
                     // 调整滑动距离为正数
                     distanceX = Math.abs(deltaX),
@@ -184,6 +177,17 @@ class WxTouch {
                     evt.direction = distanceX > distanceY ? (deltaX > 0 ? "right" : "left") : deltaY > 0 ? "down" : "up";
                     events.swipe.call(context, evt);
                 }
+            }
+
+            // 如果没有触摸点了，就是所有的手指都已经离开屏幕，标记触摸点为 false
+            if (evt.touches.length == 0) {
+                this.touched = false;
+                this.startTouch = null;
+
+            } else if (events.pressmove) {
+
+                // 如果还有手指触摸着屏幕，并且定义 pressmove 事件，需要重置开始触摸的中心位置
+                this.startPosition = getPosition(evt.touches);
             }
         }
 
@@ -247,12 +251,12 @@ class WxTouch {
 // 第一个参数是事件的名称，你自己定义，建议首字母大写
 // @param {String} name
 // @param {Object} options
-export default function(name, options) {
+export default function (name, options) {
     let touch = new WxTouch(options),
         events = {};
 
     return TOUCH_TYPES.forEach(item => {
-        events[item + name] = function(evt) {
+        events[item + name] = function (evt) {
             touch[item](evt, this);
         }
     }), events;
